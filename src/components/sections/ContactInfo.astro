@@ -1,0 +1,64 @@
+---
+import Contact from "@components/forms/Contact.astro"
+import { getBackgroundColor, getTextColor, getPaddingClass } from '@utils/styleUtils';
+import type { ThemeColor, PaddingSize } from '@utils/styleUtils';
+import { siteConfig } from '@data/config';
+import { Mail, Phone, MapPin } from 'lucide-astro';
+export interface Props {
+    content?: {
+        title?: string;
+        description?: string;
+        contactInfo?: {
+            email?: string;
+            phone?: string;
+            address?: string;
+        };
+    };
+    background?: ThemeColor;
+    padding?: PaddingSize;
+    paddingTop?: PaddingSize;
+    paddingBottom?: PaddingSize;
+}
+const {
+    content,
+    background = 'base',
+    padding,
+    paddingTop,
+    paddingBottom
+} = Astro.props;
+
+const bgColor = getBackgroundColor(background);
+const textColor = getTextColor(background);
+const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
+
+---
+
+<section id="contact" class:list={[bgColor, paddingClass]}>
+    <div class="site-container px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class:list={[textColor]}>Contactgegevens</h2>
+                <p class:list={[textColor]}>
+                    Neem gerust contact met ons op voor vragen, opmerkingen of ondersteuning.
+                </p>
+                <p class:list={[textColor]}>
+                    We zijn bereikbaar via e-mail, telefoon of bezoek ons op onze locatie.
+                </p>
+                <div class:list={["flex flex-col gap-2 mt-4", textColor]}>
+                    <div class:list={["flex items-center gap-2"]}><Mail aria-hidden="true" /> <a href={`mailto:${siteConfig.Socials.Email}`}>{siteConfig.Socials.Email}</a></div>
+                    <div class:list={["flex items-center gap-2"]}><Phone aria-hidden="true" /> <a href={`tel:${siteConfig.Socials.Phone}`}>{siteConfig.Socials.Phone}</a></div>
+                    <div class:list={["flex items-center gap-2"]}><MapPin aria-hidden="true" /> <a href={`https://maps.google.com/?q=${siteConfig.Socials.Location}`}>{siteConfig.Socials.Location}</a></div>
+                </div>
+            </div>
+            <div>
+                <h3 class:list={[textColor]}>Pijn in het weekend of op feestdagen?</h2>
+                <p class:list={[textColor]}>
+                    Voor noodgevallen buiten onze reguliere openingstijden, kunt u contact opnemen met de wachtdienst via:
+                </p>
+                <div class:list={["flex flex-col gap-2 mt-4", textColor]}>
+                    <div class:list={["flex items-center gap-2"]}><Phone aria-hidden="true" /> <a href={`tel:${siteConfig.Socials.EmergencyPhone}`}>{siteConfig.Socials.EmergencyPhone}</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
