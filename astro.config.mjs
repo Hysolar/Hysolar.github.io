@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 const site = process.env.PUBLIC_SITE_URL || 'http://localhost:4321';
 
 export default defineConfig({
-  site: 'https://hysolar.github.io',
+  site: 'https://Hysolar.github.io',
   vite: {
     plugins: [tailwindcss()],
     css: {
